@@ -4,7 +4,7 @@ services:
     # restart: always
     build: .
     container_name: 'python3_practice'
-    working_dir: '/root/'
+    working_dir: '/root/opt'
     tty: true
     volumes:
       - ./script:/root/opt
