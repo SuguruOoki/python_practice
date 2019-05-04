@@ -12,4 +12,4 @@ class MyClass:
 
 a = MyClass()     # クラスのインスタンスを生成
 a.setName("Ohki") # setName()メソッドをコール
-print a.getName() # getName()メソッドをコール
+print(a.getName()) # getName()メソッドをコール
