@@ -1,18 +1,16 @@
-FROM python:3
-USER root
+FROM python:3.7.3-alpine
 
-# インフラ周りで必要な設定をインストール
-RUN apt-get update
-RUN apt-get -y install locales && \
-    localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
-ENV TZ JST-9
-ENV TERM xterm
+# ソースを置くディレクトリを変数として格納
+ARG project_dir=/root/
 
-# 開発周りで必要な設定をインストール
-RUN apt-get install -y vim less
+# 必要なファイルをローカルからコンテナにコピー
+ADD requirements.txt $project_dir
+
+# requirements.txtに記載されたパッケージをインストール
+WORKDIR $project_dir
 RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
-RUN pip install -r ./requirements.txt
+RUN pip install -r requirements.txt
+
+# （コンテナ内で作業する場合）必要なパッケージをインストール
+RUN apk update
+RUN apk add zsh vim tmux git tig
